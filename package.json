@@ -1,0 +1,28 @@
+{
+  "name": "gridsense",
+  "version": "1.0.0",
+  "description": "GridSense – Autonomous Renewable Energy Intelligence Platform",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "frontend:install": "cd frontend && npm install",
+    "frontend:dev": "cd frontend && npm run dev",
+    "frontend:build": "cd frontend && npm run build",
+    "frontend:preview": "cd frontend && npm run preview",
+    "frontend:lint": "cd frontend && npm run lint",
+    "backend:install": "cd backend && pip install -r requirements.txt",
+    "backend:dev": "cd backend && python -m uvicorn main:app --reload --host 0.0.0.0 --port 8000",
+    "backend:test": "cd backend && pytest",
+    "install:all": "npm install && npm run frontend:install && npm run backend:install",
+    "dev": "concurrently \"npm run frontend:dev\" \"npm run backend:dev\"",
+    "build": "npm run frontend:build",
+    "lint": "npm run frontend:lint"
+  },
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

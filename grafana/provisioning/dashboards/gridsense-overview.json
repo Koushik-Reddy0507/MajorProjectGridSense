@@ -1,0 +1,239 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": null,
+  "links": [],
+  "panels": [
+    {
+      "id": 1,
+      "title": "Electricity Demand",
+      "type": "timeseries",
+      "datasource": {
+        "type": "postgres",
+        "uid": "gridsense-postgres"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "lineWidth": 2,
+            "showPoints": "never"
+          },
+          "unit": "kW"
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "targets": [
+        {
+          "rawSql": "SELECT timestamp, forecasted_demand FROM demand_forecasts WHERE $__timeFilter(timestamp) ORDER BY timestamp",
+          "format": "time_series",
+          "refId": "A"
+        }
+      ],
+      "title": "Demand Forecast"
+    },
+    {
+      "id": 2,
+      "title": "Renewable Generation",
+      "type": "timeseries",
+      "datasource": {
+        "type": "postgres",
+        "uid": "gridsense-postgres"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "drawStyle": "bars",
+            "fillOpacity": 40,
+            "lineWidth": 1
+          },
+          "unit": "kW"
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "targets": [
+        {
+          "rawSql": "SELECT timestamp, solar_generation FROM renewable_forecasts WHERE $__timeFilter(timestamp) ORDER BY timestamp",
+          "format": "time_series",
+          "refId": "solar"
+        },
+        {
+          "rawSql": "SELECT timestamp, wind_generation FROM renewable_forecasts WHERE $__timeFilter(timestamp) ORDER BY timestamp",
+          "format": "time_series",
+          "refId": "wind"
+        }
+      ],
+      "title": "Solar & Wind Generation"
+    },
+    {
+      "id": 3,
+      "title": "Battery State of Charge",
+      "type": "gauge",
+      "datasource": {
+        "type": "postgres",
+        "uid": "gridsense-postgres"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 0,
+        "y": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "max": 100,
+          "min": 0,
+          "unit": "percent",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "red", "value": null },
+              { "color": "yellow", "value": 20 },
+              { "color": "green", "value": 40 }
+            ]
+          }
+        }
+      },
+      "options": {
+        "orientation": "auto",
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "targets": [
+        {
+          "rawSql": "SELECT COALESCE((analysis->>'soc_latest')::float, 0) FROM battery_analysis ORDER BY created_at DESC LIMIT 1",
+          "format": "table",
+          "refId": "A"
+        }
+      ],
+      "title": "Battery SOC"
+    },
+    {
+      "id": 4,
+      "title": "Optimization KPIs",
+      "type": "stat",
+      "datasource": {
+        "type": "postgres",
+        "uid": "gridsense-postgres"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 18,
+        "x": 6,
+        "y": 8
+      },
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": ["lastNotNull"],
+          "fields": "",
+          "values": false
+        }
+      },
+      "targets": [
+        {
+          "rawSql": "SELECT COALESCE((kpis->>'renewable_utilization_percent')::float, 0) AS renewable_pct, COALESCE((kpis->>'grid_dependency_percent')::float, 0) AS grid_pct, COALESCE((kpis->>'total_cost_reduction_percent')::float, 0) AS cost_reduction FROM optimization_plans ORDER BY created_at DESC LIMIT 1",
+          "format": "table",
+          "refId": "A"
+        }
+      ],
+      "title": "Optimization Metrics"
+    },
+    {
+      "id": 5,
+      "title": "Electricity Prices",
+      "type": "timeseries",
+      "datasource": {
+        "type": "postgres",
+        "uid": "gridsense-postgres"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "drawStyle": "line",
+            "fillOpacity": 30,
+            "lineWidth": 2
+          },
+          "unit": "currencyUSD"
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 16
+      },
+      "targets": [
+        {
+          "rawSql": "SELECT timestamp, actual_price FROM electricity_prices WHERE $__timeFilter(timestamp) ORDER BY timestamp",
+          "format": "time_series",
+          "refId": "actual"
+        },
+        {
+          "rawSql": "SELECT timestamp, forecasted_price FROM electricity_prices WHERE $__timeFilter(timestamp) ORDER BY timestamp",
+          "format": "time_series",
+          "refId": "forecast"
+        }
+      ],
+      "title": "Electricity Price Analysis"
+    }
+  ],
+  "refresh": "5s",
+  "schemaVersion": 39,
+  "tags": ["gridsense", "renewable"],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-24h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "GridSense Overview",
+  "uid": "gridsense-overview",
+  "version": 1,
+  "weekStart": ""
+}

@@ -1,0 +1,349 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom CSS Variables */
+:root {
+  --color-neon-emerald: #00ff88;
+  --color-neon-cyan: #00d4ff;
+  --color-neon-purple: #9d4edd;
+  --color-dark-bg: #0a0e27;
+  --color-dark-card: #1a1f3a;
+  --color-dark-input: #16213e;
+  --color-dark-border: #2a3f5f;
+}
+
+* {
+  @apply transition-colors duration-200;
+}
+
+html {
+  @apply scroll-smooth;
+}
+
+body {
+  @apply bg-dark-bg text-white font-sans overflow-x-hidden;
+  background-image:
+    radial-gradient(circle at 20% 50%, rgba(0, 255, 136, 0.07) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(0, 229, 255, 0.07) 0%, transparent 50%),
+    radial-gradient(circle at 50% 20%, rgba(255, 179, 0, 0.04) 0%, transparent 50%),
+    linear-gradient(180deg, #050b14 0%, #071120 100%);
+  background-attachment: fixed;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  @apply w-2;
+}
+
+::--webkit-scrollbar-track {
+  @apply bg-dark-card;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-dark-border rounded;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-neon-emerald/30;
+}
+
+/* Enhanced Glass morphism effects — high-transparency, turbine-visible */
+.glass {
+  background: rgba(13, 21, 38, 0.32);
+  backdrop-filter: blur(26px) saturate(150%);
+  -webkit-backdrop-filter: blur(26px) saturate(150%);
+  border: 1px solid rgba(0, 255, 136, 0.12);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.07);
+}
+
+.glass-strong {
+  background: rgba(8, 14, 26, 0.45);
+  backdrop-filter: blur(32px) saturate(160%);
+  -webkit-backdrop-filter: blur(32px) saturate(160%);
+  border: 1px solid rgba(0, 255, 136, 0.14);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.glass-card {
+  background: rgba(13, 21, 38, 0.28);
+  backdrop-filter: blur(22px) saturate(150%);
+  -webkit-backdrop-filter: blur(22px) saturate(150%);
+  border: 1px solid rgba(0, 229, 255, 0.12);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.glass-hover {
+  @apply glass hover:bg-dark-card/40 hover:border-neon-emerald/40 cursor-pointer transition-all duration-300;
+}
+
+.glass-input {
+  background: rgba(16, 27, 48, 0.35);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(30, 48, 80, 0.6);
+}
+
+/* Neon glow effects */
+.neon-glow {
+  box-shadow: 0 0 20px rgba(0, 255, 136, 0.3), 0 0 40px rgba(0, 255, 136, 0.1);
+}
+
+.neon-glow-cyan {
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.3), 0 0 40px rgba(0, 212, 255, 0.1);
+}
+
+.neon-glow-purple {
+  box-shadow: 0 0 20px rgba(157, 78, 221, 0.3), 0 0 40px rgba(157, 78, 221, 0.1);
+}
+
+/* Gradient backgrounds */
+.bg-gradient-neon {
+  background: linear-gradient(135deg, #00ff88 0%, #00d4ff 100%);
+}
+
+.bg-gradient-dark {
+  background: linear-gradient(135deg, #1a1f3a 0%, #16213e 100%);
+}
+
+/* Text utilities */
+.text-gradient {
+  background: linear-gradient(135deg, #00ff88 0%, #00d4ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Button styles */
+.btn-primary-neon {
+  @apply btn-base bg-gradient-neon text-dark-bg hover:shadow-neon hover:scale-105;
+}
+
+.btn-base {
+  @apply px-4 py-2 rounded-lg font-medium transition-all duration-300 inline-flex items-center justify-center gap-2;
+}
+
+/* Custom animations */
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes energyPulse {
+  0%, 100% { opacity: 0.5; box-shadow: 0 0 10px rgba(0, 255, 136, 0.3); }
+  50% { opacity: 1; box-shadow: 0 0 30px rgba(0, 255, 136, 0.6); }
+}
+
+@keyframes floatIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-energy-pulse {
+  animation: energyPulse 2s ease-in-out infinite;
+}
+
+.animate-float-in {
+  animation: floatIn 0.6s ease-out;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+
+/* Card styles */
+.card {
+  @apply glass rounded-2xl p-6;
+}
+
+.card-hover {
+  @apply glass rounded-2xl p-6 hover:border-neon-emerald/50 hover:bg-dark-card/60 cursor-pointer transition-all duration-300;
+}
+
+/* Input styles */
+.input-neon {
+  @apply w-full px-4 py-3 bg-dark-input border border-dark-border rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-neon-emerald focus:ring-1 focus:ring-neon-emerald/50 transition-all duration-300;
+}
+
+/* ============================================================
+   PREMIUM ENERGY-CONTROL GLASSMORPHISM SYSTEM
+   ============================================================ */
+
+/* Futuristic control-interface glass — high transparency */
+.glass-premium {
+  position: relative;
+  background: linear-gradient(145deg, rgba(13, 21, 38, 0.42) 0%, rgba(16, 27, 48, 0.24) 100%);
+  backdrop-filter: blur(30px) saturate(170%);
+  -webkit-backdrop-filter: blur(30px) saturate(170%);
+  border: 1px solid rgba(0, 255, 136, 0.16);
+  box-shadow:
+    0 8px 40px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.09),
+    inset 0 0 32px rgba(0, 255, 136, 0.04);
+}
+
+/* Ultra-transparent glass for auth cards — turbine fully visible */
+.glass-auth {
+  position: relative;
+  background: linear-gradient(145deg, rgba(10, 17, 30, 0.18) 0%, rgba(14, 23, 40, 0.08) 100%);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border: 1px solid rgba(0, 255, 136, 0.18);
+  box-shadow:
+    0 8px 40px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 0 32px rgba(0, 255, 136, 0.03);
+}
+
+/* Animated flowing gradient border */
+.glow-border {
+  position: relative;
+}
+.glow-border::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(130deg, rgba(0,255,136,0.55), rgba(0,229,255,0.35), rgba(255,179,0,0.25), rgba(0,255,136,0.55));
+  background-size: 300% 300%;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: borderFlow 6s ease infinite;
+  pointer-events: none;
+}
+@keyframes borderFlow {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Premium module flashcard */
+.module-card {
+  position: relative;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.45s ease;
+  will-change: transform;
+}
+.module-card:hover {
+  transform: translateY(-8px) rotateX(4deg) rotateY(-4deg);
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.55),
+    0 0 40px rgba(0, 255, 136, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+/* Shine sweep */
+.module-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -80%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(105deg, transparent 20%, rgba(255,255,255,0.09) 50%, transparent 80%);
+  transform: skewX(-20deg);
+  transition: left 0.7s ease;
+  pointer-events: none;
+}
+.module-card:hover::after {
+  left: 130%;
+}
+
+/* Energy Core centerpiece */
+@keyframes coreRing {
+  0% { transform: rotate(0deg) scale(1); opacity: 0.9; }
+  50% { transform: rotate(180deg) scale(1.06); opacity: 1; }
+  100% { transform: rotate(360deg) scale(1); opacity: 0.9; }
+}
+@keyframes coreRingReverse {
+  0% { transform: rotate(360deg) scale(1.04); }
+  100% { transform: rotate(0deg) scale(1.04); }
+}
+@keyframes coreBreath {
+  0%, 100% { box-shadow: 0 0 40px rgba(0,255,136,0.35), 0 0 90px rgba(0,255,136,0.12), inset 0 0 30px rgba(0,255,136,0.18); }
+  50% { box-shadow: 0 0 70px rgba(0,255,136,0.6), 0 0 140px rgba(0,229,255,0.25), inset 0 0 44px rgba(0,255,136,0.3); }
+}
+@keyframes orbitSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.core-ring {
+  animation: coreRing 14s linear infinite;
+}
+.core-ring-reverse {
+  animation: coreRingReverse 10s linear infinite;
+}
+.core-breath {
+  animation: coreBreath 3.5s ease-in-out infinite;
+}
+.core-orbit {
+  animation: orbitSpin 26s linear infinite;
+}
+.core-orbit-fast {
+  animation: orbitSpin 18s linear infinite reverse;
+}
+.core-orbit-paused:hover .core-orbit,
+.core-orbit-paused:hover .core-orbit-fast {
+  animation-play-state: paused;
+}
+/* counter-rotate so icons stay upright while orbiting */
+@keyframes orbitCounter {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+.core-orbit-icon {
+  animation: orbitCounter 26s linear infinite;
+}
+.core-orbit-fast .core-orbit-icon {
+  animation: orbitCounter 18s linear infinite reverse;
+}
+
+/* Command palette */
+.palette-backdrop {
+  background: rgba(3, 8, 16, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.palette-kbd {
+  @apply inline-flex items-center justify-center min-w-[20px] h-5 px-1.5 rounded border border-dark-border bg-dark-input text-[10px] font-mono text-gray-400;
+}
+
+/* Auth pages - animated aurora glow */
+.aurora-orb {
+  filter: blur(90px);
+  animation: auroraDrift 14s ease-in-out infinite alternate;
+}
+@keyframes auroraDrift {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(40px, -30px) scale(1.15); }
+  100% { transform: translate(-30px, 30px) scale(0.95); }
+}
+
+@keyframes shakeError {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-8px); }
+  40%, 80% { transform: translateX(8px); }
+}
+.animate-shake {
+  animation: shakeError 0.5s ease;
+}
+
+/* ============================================================
+   90%-TRANSPARENT CARD SURFACES — 3D turbine shines through
+   Layer on top of .glass / .glass-premium / .glass-strong.
+   Only the card SURFACE becomes ~90% transparent; text, icons,
+   borders and neon glow-borders stay at full brightness.
+   Hover solidifies the surface slightly for readability.
+   ============================================================ */
+.card-ultra {
+  background: linear-gradient(145deg, rgba(13, 21, 38, 0.08) 0%, rgba(16, 27, 48, 0.04) 100%);
+}
+.card-ultra:hover {
+  background: linear-gradient(145deg, rgba(13, 21, 38, 0.32) 0%, rgba(16, 27, 48, 0.22) 100%);
+}
